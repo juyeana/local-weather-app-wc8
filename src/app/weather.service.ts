@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import {ICurrentWeatherData} from './icurrent-weather-data';
 import { environment } from 'src/environments/environment';
 import { ICurrentWeather } from './icurrent-weather';
+import {map} from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,7 @@ export class WeatherService {
   getCurrentWeather(city:string, country:string){
     return this.httpClient.get<ICurrentWeatherData>(
 			`https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${environment.appId}`
-		);
+		).pipe(map(data =>this.transformToICurrentWeather(data)));
   }
 
   transformToICurrentWeather(data: ICurrentWeatherData):ICurrentWeather{
