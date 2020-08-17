@@ -1,9 +1,17 @@
-<div style="text-align:center;">
-<mat-toolbar>LocalCast Weather
-</mat-toolbar>
-<div>Your city, your forecast, right now!</div>
-<mat-card color="primary">
-<h2>Current Weather</h2>
-<app-current-weather></app-current-weather>
-</mat-card>
+<div style="text-align: center;">
+	<mat-toolbar>LocalCast Weather </mat-toolbar>
+	<div>Your city, your forecast, right now!</div>
+	<div fxLayout="row" fxLayoutAlign="center">
+    <!-- searchEvent binding happens here. $event is the value that passed from the ciry-search.component -->
+		<app-city-search (searchEvent)=doSearch($event);></app-city-search>
+	</div>
+	<div fxLayout="row" fxLayoutAlign="center">
+		<div fvFlex></div>
+		<div fvFlex="300px">
+			<mat-card color="primary">
+				<h2>Current Weather</h2>
+				<app-current-weather [current]="currentWeather"></app-current-weather>
+			</mat-card>
+		</div>
+	</div>
 </div>
