@@ -1,9 +1,14 @@
 <div style="text-align: center;">
-	<mat-toolbar>LocalCast Weather </mat-toolbar>
+	<mat-toolbar><span>LocalCast Weather</span></mat-toolbar>
 	<div>Your city, your forecast, right now!</div>
 	<div fxLayout="row" fxLayoutAlign="center">
-    <!-- searchEvent binding happens here. $event is the value that passed from the ciry-search.component -->
-		<app-city-search (searchEvent)=doSearch($event);></app-city-search>
+		<!-- binding to an event uses "()"
+when searchEvent happens, I(app.component.html) want the emitted data and to do something with it.
+$event is a variable to take the value from the searchEvent
+pass the $event to doSearch function which will implement in app.component.ts.
+-->
+		
+		<app-city-search (searchEvent)="doSearch($event)"></app-city-search>
 	</div>
 	<div fxLayout="row" fxLayoutAlign="center">
 		<div fvFlex></div>

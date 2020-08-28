@@ -4,14 +4,18 @@ import { ICurrentWeatherData } from './icurrent-weather-data';
 import { environment } from 'src/environments/environment';
 import { ICurrentWeather } from './icurrent-weather';
 import { map } from 'rxjs/operators';
+import{IWeatherService} from './iweather-service';
+import{Observable} from'rxjs';
 
 @Injectable({
 	providedIn: 'root',
 })
-export class WeatherService {
+
+//I'm following the ruls of IWeatherInterface
+export class WeatherService implements IWeatherService {
 	constructor(private httpClient: HttpClient) {}
 
-	getCurrentWeather(search: string | number, country?: string) {
+	getCurrentWeather(search: string | number, country?: string) : Observable<ICurrentWeather>{
 		let uriParams='';
 		if(typeof search === 'string'){
 			uriParams=`q=${search}`;
@@ -29,7 +33,7 @@ export class WeatherService {
 			.pipe(map((data) => this.transformToICurrentWeather(data)));
 	}
 
-	transformToICurrentWeather(data: ICurrentWeatherData): ICurrentWeather {
+	private transformToICurrentWeather(data: ICurrentWeatherData): ICurrentWeather {
 		return {
 			city: data.name,
 			country: data.sys.country,
